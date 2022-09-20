@@ -3,7 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Data/Downloads/TestChatSDKJava/app/src/main/res/layout/activity_main.xml" value="0.17074275362318841" />
+        <entry key="..\:/Data/Downloads/TestChatSDKJava/app/src/main/res/drawable/edittext_design.xml" value="0.137" />
+        <entry key="..\:/Data/Downloads/TestChatSDKJava/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Data/Downloads/TestChatSDKJava/app/src/main/res/layout/activity_second.xml" value="0.2" />
+        <entry key="..\:/Data/Downloads/TestChatSDKJava/app/src/main/res/layout/activity_third.xml" value="0.2" />
+        <entry key="..\:/Data/Downloads/TestChatSDKJava/app/src/main/res/layout/item_received_message.xml" value="0.17074275362318841" />
+        <entry key="..\:/Data/Downloads/TestChatSDKJava/app/src/main/res/layout/item_recieved_image.xml" value="0.25" />
+        <entry key="..\:/Data/Downloads/TestChatSDKJava/app/src/main/res/layout/item_sent_image.xml" value="0.17074275362318841" />
+        <entry key="..\:/Data/Downloads/TestChatSDKJava/app/src/main/res/layout/item_sent_message.xml" value="0.17074275362318841" />
       </map>
     </option>
   </component>

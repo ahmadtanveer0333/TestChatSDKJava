@@ -14,9 +14,9 @@ public class WebChatDetialVisitor {
     private Object ChatMessage;
     private String Message;
     private String MessageDate;
-    private Object IsMediaFile;
+    private boolean IsMediaFile;
     private Boolean IsReply;
-    private Object Url;
+    private String Url;
     private Object Extension;
     private Object Tags;
 
@@ -125,13 +125,6 @@ public class WebChatDetialVisitor {
         MessageDate = messageDate;
     }
 
-    public Object getIsMediaFile() {
-        return IsMediaFile;
-    }
-
-    public void setIsMediaFile(Object isMediaFile) {
-        IsMediaFile = isMediaFile;
-    }
 
     public Boolean getReply() {
         return IsReply;
@@ -139,14 +132,6 @@ public class WebChatDetialVisitor {
 
     public void setReply(Boolean reply) {
         IsReply = reply;
-    }
-
-    public Object getUrl() {
-        return Url;
-    }
-
-    public void setUrl(Object url) {
-        Url = url;
     }
 
     public Object getExtension() {
@@ -163,6 +148,22 @@ public class WebChatDetialVisitor {
 
     public void setTags(Object tags) {
         Tags = tags;
+    }
+
+    public boolean getMediaFile() {
+        return IsMediaFile;
+    }
+
+    public void setMediaFile(boolean mediaFile) {
+        IsMediaFile = mediaFile;
+    }
+
+    public String getUrl() {
+        return Url;
+    }
+
+    public void setUrl(String url) {
+        Url = url;
     }
 }
 
