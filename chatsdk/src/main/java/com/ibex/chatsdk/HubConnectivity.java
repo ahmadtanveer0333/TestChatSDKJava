@@ -157,7 +157,9 @@ public class HubConnectivity {
                 }
                 if(methodName.getAsString().equals(SERVER_IMAGE_RECIEVING_METHODNAME)){
                     Log.d(TAG, "onMessageReceived: onImageRecieving " + URL+message.get(2).getAsString());
-                    callBack.onImageRecieving(URL+message.get(2).getAsString());
+                    if(message.get(1).getAsString().equals(String.valueOf(visitorId))) {
+                        callBack.onImageRecieving(URL + message.get(2).getAsString());
+                    }
                 }
             }
         });

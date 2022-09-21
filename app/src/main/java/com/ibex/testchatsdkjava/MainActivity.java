@@ -328,7 +328,7 @@ public class MainActivity extends AppCompatActivity implements CallBack {
         try {
 
             jsonObject.put("image", imageUrl);
-            jsonObject.put("isSent", false);
+            jsonObject.put("isSent", true);
             messageAdapter.addItem(jsonObject);
             recyclerView.smoothScrollToPosition(messageAdapter.getItemCount() - 1);
 
