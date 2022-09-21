@@ -3,8 +3,9 @@ package com.ibex.chatsdk;
 public enum HubConnectionResponse {
     CONNECTED,
     DISCONNECTED,
-    ONSTART,
+    START,
     CLOSED,
     RECONNECTING,
     RECONNECTED,
+    SLOW
 }

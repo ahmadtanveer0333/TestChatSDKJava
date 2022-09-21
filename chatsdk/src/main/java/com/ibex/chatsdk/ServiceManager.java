@@ -89,38 +89,6 @@ public class ServiceManager {
         });
     }
 
-    public void sendMessage(String message){
-        try {
-            this.visitorId = prefConfig.getData(VISITOR_ID);
-            this.sessionId = prefConfig.getData(SESSION_ID);
-            Call<SaveVisitorChat> call = apiMethods.saveVisitorChat(sessionId, visitorId, message);
-            call.enqueue(new Callback<SaveVisitorChat>() {
-                @Override
-                public void onResponse(Call<SaveVisitorChat> call, Response<SaveVisitorChat> response) {
-                    SaveVisitorChat saveVisitorChat = response.body();
-                    callBack.messageCallBack(saveVisitorChat, true, false);
-                    Log.d("apiresponse", "saveVisitorChat: sessionID == " + sessionId);
-                    Log.d("apiresponse", "saveVisitorChat: visitorID == " + visitorId);
-                    //      Log.d("apiresponse", "saveVisitorChat: " + saveVisitorChat.getWcVisitorId());
-                    //  callBack.messageCallBack(saveVisitorChat);
-
-                    callBack.onsendMessage(response.message());
-
-                }
-
-                @Override
-                public void onFailure(Call<SaveVisitorChat> call, Throwable t) {
-                    Log.d("apiresponse", "onResponse: " + t.getMessage());
-                    callBack.onsendMessage(t.getMessage());
-
-                }
-            });
-        }catch (Exception e ){
-            callBack.onsendMessage(e.getMessage());
-        }
-
-    }
-
     public void retrievePreviousChat(){
         try {
              visitorId = prefConfig.getData(VISITOR_ID);
@@ -136,11 +104,16 @@ public class ServiceManager {
 
                         for (int i = 0; i < messageDetail.getWebChatDetialVisitor().size(); i++) {
                             Message message = new Message();
-                            //        Log.d("apiresponse", "messages: " + messageDetail.getWebChatDetialVisitor().get(i).getMessage());
+//                            Log.d("apiresponse", "STRINGmessage: " + messageDetail.getWebChatDetialVisitor().get(i).getMessage());
+//                            Log.d("apiresponse", "url     : " + messageDetail.getWebChatDetialVisitor().get(i).getUrl());
                             message.setMessage(messageDetail.getWebChatDetialVisitor().get(i).getMessage());
                             message.setReply(messageDetail.getWebChatDetialVisitor().get(i).getReply());
                             message.setMediaFile(messageDetail.getWebChatDetialVisitor().get(i).getMediaFile());
-                            message.setUrl(messageDetail.getWebChatDetialVisitor().get(i).getUrl());
+                            if(messageDetail.getWebChatDetialVisitor().get(i).getMediaFile()){
+                                message.setUrl(URL+messageDetail.getWebChatDetialVisitor().get(i).getUrl());
+                            }else {
+                                message.setUrl(messageDetail.getWebChatDetialVisitor().get(i).getUrl());
+                            }
                             messageList.add(message);
                         }
                         callBack.onSaveVisitor(response.message(), visitorId, sessionId);
@@ -165,6 +138,38 @@ public class ServiceManager {
         }
     }
 
+    public void sendMessage(String message){
+        try {
+            this.visitorId = prefConfig.getData(VISITOR_ID);
+            this.sessionId = prefConfig.getData(SESSION_ID);
+            Call<SaveVisitorChat> call = apiMethods.saveVisitorChat(sessionId, visitorId, message);
+            call.enqueue(new Callback<SaveVisitorChat>() {
+                @Override
+                public void onResponse(Call<SaveVisitorChat> call, Response<SaveVisitorChat> response) {
+                    SaveVisitorChat saveVisitorChat = response.body();
+              //      callBack.messageCallBack(saveVisitorChat, true, false);
+                    Log.d("apiresponse", "saveVisitorChat: sessionID == " + sessionId);
+                    Log.d("apiresponse", "saveVisitorChat: visitorID == " + visitorId);
+                    //      Log.d("apiresponse", "saveVisitorChat: " + saveVisitorChat.getWcVisitorId());
+                    //  callBack.messageCallBack(saveVisitorChat);
+
+                    callBack.onsendMessage(response.message());
+
+                }
+
+                @Override
+                public void onFailure(Call<SaveVisitorChat> call, Throwable t) {
+                    Log.d("apiresponse", "onResponse: " + t.getMessage());
+                    callBack.onsendMessage(t.getMessage());
+
+                }
+            });
+        }catch (Exception e ){
+            callBack.onsendMessage(e.getMessage());
+        }
+
+    }
+
     public void sendFile( File file){
 
         try {
@@ -179,8 +184,8 @@ public class ServiceManager {
             call.enqueue(new Callback<ImageSendResponse>() {
                 @Override
                 public void onResponse(Call<ImageSendResponse> call, Response<ImageSendResponse> response) {
-                    Log.d("apiresponse", "sendImage: " + response.body().getUrl());
-                    Log.d("apiresponse", "sendImage: " + response.message());
+                    Log.d("apiresponse", "sendfile url: " + response.body().getUrl());
+                    Log.d("apiresponse", "sendmessage: " + response.message());
                     callBack.onFileSent(response.message(),URL+ response.body().getUrl());
                 }
 

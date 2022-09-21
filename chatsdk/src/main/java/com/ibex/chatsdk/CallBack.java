@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public interface CallBack {
 
-    public void messageCallBack( Object object , boolean isSaveVisitorChat, boolean isVsitorChatDetail);
-    public void idCallBack(int visitorId, int sessionid);
+//    public void messageCallBack( Object object , boolean isSaveVisitorChat, boolean isVsitorChatDetail);
+//    public void idCallBack(int visitorId, int sessionid);
     public void hubConnectionCallBack(HubConnectionResponse status);
     public void onRecieveMessage(String message);
     public void onAgentConnected(String agentName, String welcomeMessage);

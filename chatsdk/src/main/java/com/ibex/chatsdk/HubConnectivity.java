@@ -56,7 +56,7 @@ public class HubConnectivity {
         prefConfig = new PrefConfig(context);
     }
 
-    public void createHubConnection(String name, String email, String cellNumber){
+    private void createHubConnection(String name, String email, String cellNumber){
         //  hubConnection = new HubConnection("http://swiftr.azurewebsites.net","", true ,logger);
 
         serviceManager = new ServiceManager(context, callBack);
@@ -75,7 +75,7 @@ public class HubConnectivity {
 
     }
 
-    public void HubConnected(){
+    private void HubConnected(){
         hubConnection.connected(new Runnable() {
             @Override
             public void run() {
@@ -86,7 +86,7 @@ public class HubConnectivity {
         });
     }
 
-    public void HubStart(String name, String email, String cellNumber){
+    private void HubStart(String name, String email, String cellNumber){
         hubConnection.start()
                 .done(new Action<Void>() {
                     @Override
@@ -106,6 +106,7 @@ public class HubConnectivity {
                             Log.d("hubStatus", "start: saveVisitor");
                             serviceManager.saveVisitor(context, name, email, cellNumber);
                         }
+                        callBack.hubConnectionCallBack(HubConnectionResponse.START);
                     }
                 })
                 .onError(new ErrorCallback() {
@@ -117,7 +118,7 @@ public class HubConnectivity {
 
     }
 
-    public void HubMessageRecieved(){
+    private void HubMessageRecieved(){
         hubConnection.received(new MessageReceivedHandler() {
             @Override
             public void onMessageReceived(JsonElement jsonElement) {
@@ -181,43 +182,47 @@ public class HubConnectivity {
 
     }
 
-    public void HubConnectionSlow(){
+    private void HubConnectionSlow(){
         hubConnection.connectionSlow(new Runnable() {
             @Override
             public void run() {
                 Log.d(TAG, "connectionSlow: ");
+                callBack.hubConnectionCallBack(HubConnectionResponse.SLOW);
             }
         });
     }
 
-    public void HubReconnecting(){
+    private void HubReconnecting(){
         hubConnection.reconnecting(new Runnable() {
             @Override
             public void run() {
                 Log.d(TAG, "reconnecting: ");
+                callBack.hubConnectionCallBack(HubConnectionResponse.RECONNECTING);
             }
         });
     }
 
-    public void HubReconnected(){
+    private void HubReconnected(){
         hubConnection.reconnected(new Runnable() {
             @Override
             public void run() {
                 Log.d(TAG, "reconnected: ");
+                callBack.hubConnectionCallBack(HubConnectionResponse.RECONNECTED);
             }
         });
     }
 
-    public void HubClosed(){
+    private void HubClosed(){
         hubConnection.closed(new Runnable() {
             @Override
             public void run() {
                 Log.d("hubStatus", "closed: ");
+                callBack.hubConnectionCallBack(HubConnectionResponse.CLOSED);
             }
         });
     }
 
-    public void createHubProxy(){
+    private void createHubProxy(){
         hubProxy  = hubConnection.createHubProxy(HUB_Name);
         Log.d(TAG, "messageReceived: " + hubProxy.toString());
 //        hubProxy.subscribe(new Object() {
@@ -275,7 +280,11 @@ public class HubConnectivity {
 
     }
 
-    public void TypingAlertInvoke(int visitorId, String visitorName){
+    // Public Functions
+
+    public void TypingAlertInvoke(String visitorName){
+        visitorId = prefConfig.getData(VISITOR_ID);
+        sessionId = prefConfig.getData(SESSION_ID);
         hubProxy.invoke(CRM_INVOKE_METHOD_NAME ,visitorId,visitorName)
                 .done(new Action<Void>() {
                     @Override
@@ -293,7 +302,9 @@ public class HubConnectivity {
                 });
     }
 
-    public  void VisitorClosedWindowInvoke(int visitorId){
+    public  void VisitorClosedWindowInvoke(){
+        visitorId = prefConfig.getData(VISITOR_ID);
+        sessionId = prefConfig.getData(SESSION_ID);
         hubProxy.invoke(VISITOR_CLOSED_WINDOW, visitorId,CLOSED_WINDOW_MESSAGE )
                 .done(new Action<Void>() {
                     @Override
@@ -318,8 +329,6 @@ public class HubConnectivity {
 
     }
 
-
-
     public void HubProxyGroupInvoke(){
         hubProxy.invoke(Constatnts.CRM_GROUP_INVOKE_METHOD_NAME ,"Group1")
                 .done(new Action<Void>() {
@@ -340,7 +349,6 @@ public class HubConnectivity {
                 });
 
     }
-
 
     public void getAuthorizedAndMakeConenction(String token ,String name, String email, String cellNumber){
             if(token.equals(AUTHENTICATION_TOKEN)){

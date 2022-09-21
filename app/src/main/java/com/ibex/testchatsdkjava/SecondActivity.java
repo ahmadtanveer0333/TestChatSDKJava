@@ -202,15 +202,7 @@ public class SecondActivity extends AppCompatActivity  implements CallBack {
                 result1 == PackageManager.PERMISSION_GRANTED;
     }
 
-    @Override
-    public void messageCallBack(Object object, boolean isSaveVisitorChat, boolean isVsitorChatDetail) {
 
-    }
-
-    @Override
-    public void idCallBack(int visitorId, int sessionid) {
-
-    }
 
     @Override
     public void hubConnectionCallBack(HubConnectionResponse status) {

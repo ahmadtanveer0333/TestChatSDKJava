@@ -118,15 +118,7 @@ public class ThirdActivity extends AppCompatActivity implements CallBack, PickiT
                 String[]{WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE}, RequestPermissionCode);
     }
 
-    @Override
-    public void messageCallBack(Object object, boolean isSaveVisitorChat, boolean isVsitorChatDetail) {
 
-    }
-
-    @Override
-    public void idCallBack(int visitorId, int sessionid) {
-
-    }
 
     @Override
     public void hubConnectionCallBack(HubConnectionResponse status) {

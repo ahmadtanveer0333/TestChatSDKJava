@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements CallBack {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // Continue with delete operation
-                        hubConnectivity.VisitorClosedWindowInvoke(visitorId);
+                        hubConnectivity.VisitorClosedWindowInvoke();
 
                     }
                 })
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements CallBack {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                hubConnectivity.TypingAlertInvoke(visitorId,"finalTest");
+                hubConnectivity.TypingAlertInvoke("test13");
             }
 
             @Override
@@ -175,53 +175,54 @@ public class MainActivity extends AppCompatActivity implements CallBack {
         message_Et.setText("");
     }
 
-    @Override
-    public void messageCallBack(Object object, boolean isSaveVisitorChat, boolean isVsitorChatDetail) {
-//        if(!isSaveVisitorChat && !isVsitorChatDetail) {
-//            SaveVisitorModel model = (SaveVisitorModel) object;
-//            Toast.makeText(this, "User Registered Successfully", Toast.LENGTH_SHORT).show();
-//        }
-//        if(isVsitorChatDetail){
-//            ArrayList<Message> messageArrayList = (ArrayList<Message>) object;
-//            try {
+//    @Override
+//    public void messageCallBack(Object object, boolean isSaveVisitorChat, boolean isVsitorChatDetail) {
+////        if(!isSaveVisitorChat && !isVsitorChatDetail) {
+////            SaveVisitorModel model = (SaveVisitorModel) object;
+////            Toast.makeText(this, "User Registered Successfully", Toast.LENGTH_SHORT).show();
+////        }
+////        if(isVsitorChatDetail){
+////            ArrayList<Message> messageArrayList = (ArrayList<Message>) object;
+////            try {
+////
+////                for (int i = 0; i <messageArrayList.size() ; i++) {
+////                    Log.d("apiresponse", "messages: " + messageArrayList.get(i).getMessage());
+////                    Log.d("apiresponse", "isSent" +  messageArrayList.get(i).isReply());
+////
+////                    if(messageArrayList.get(i).getMessage().contains(RETRIEVE_IMAGES)){
+////                        JSONObject jsonObject = new JSONObject();
+////                        jsonObject.put("image", URL+messageArrayList.get(i).getMessage());
+////                        jsonObject.put("isSent", messageArrayList.get(i).isReply());
+////                        messageAdapter.addItem(jsonObject);
+////
+////                    }else {
+////
+////                        JSONObject jsonObject = new JSONObject();
+////                        jsonObject.put("message", messageArrayList.get(i).getMessage());
+////                        jsonObject.put("isSent", messageArrayList.get(i).isReply());
+////                        messageAdapter.addItem(jsonObject);
+////
+////                    }
+////                }
+////                recyclerView.smoothScrollToPosition(messageAdapter.getItemCount() - 1);
+////            } catch (JSONException e) {
+////                e.printStackTrace();
+////            }
+////            Toast.makeText(this, "User already Registered Successfully  " + messageArrayList.size(), Toast.LENGTH_SHORT).show();
+////
+////        }
+//    }
 //
-//                for (int i = 0; i <messageArrayList.size() ; i++) {
-//                    Log.d("apiresponse", "messages: " + messageArrayList.get(i).getMessage());
-//                    Log.d("apiresponse", "isSent" +  messageArrayList.get(i).isReply());
+//    @Override
+//    public void idCallBack(int visitorId, int sessionid) {
+//        this.visitorId = visitorId;
+//        this.sessionId = sessionid;
 //
-//                    if(messageArrayList.get(i).getMessage().contains(RETRIEVE_IMAGES)){
-//                        JSONObject jsonObject = new JSONObject();
-//                        jsonObject.put("image", URL+messageArrayList.get(i).getMessage());
-//                        jsonObject.put("isSent", messageArrayList.get(i).isReply());
-//                        messageAdapter.addItem(jsonObject);
-//
-//                    }else {
-//
-//                        JSONObject jsonObject = new JSONObject();
-//                        jsonObject.put("message", messageArrayList.get(i).getMessage());
-//                        jsonObject.put("isSent", messageArrayList.get(i).isReply());
-//                        messageAdapter.addItem(jsonObject);
-//
-//                    }
-//                }
-//                recyclerView.smoothScrollToPosition(messageAdapter.getItemCount() - 1);
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//            Toast.makeText(this, "User already Registered Successfully  " + messageArrayList.size(), Toast.LENGTH_SHORT).show();
-//
-//        }
-    }
-
-    @Override
-    public void idCallBack(int visitorId, int sessionid) {
-        this.visitorId = visitorId;
-        this.sessionId = sessionid;
-
-    }
+//    }
 
     @Override
     public void hubConnectionCallBack(HubConnectionResponse status) {
+
 
     }
 
@@ -291,7 +292,7 @@ public class MainActivity extends AppCompatActivity implements CallBack {
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // Continue with delete operation
-                        hubConnectivity.VisitorClosedWindowInvoke(visitorId);
+                        hubConnectivity.VisitorClosedWindowInvoke();
 
                     }
                 })
@@ -373,12 +374,13 @@ public class MainActivity extends AppCompatActivity implements CallBack {
 
                 for (int i = 0; i <messageArrayList.size() ; i++) {
                     Log.d("apiresponse", "messages: " + messageArrayList.get(i).getMessage());
-                    Log.d("apiresponse", "messages: " + messageArrayList.get(i).isMediaFile());
+                    Log.d("apiresponse", "isMediaFile: " + messageArrayList.get(i).isMediaFile());
                     Log.d("apiresponse", "isSent" +  messageArrayList.get(i).isReply());
+                    Log.d("apiresponse", "url" +  messageArrayList.get(i).getUrl());
                 if(messageArrayList.get(i).getMessage()!=null) {
                     if (messageArrayList.get(i).isMediaFile()) {
                         JSONObject jsonObject = new JSONObject();
-                        jsonObject.put("image", URL + messageArrayList.get(i).getUrl());
+                        jsonObject.put("image",  messageArrayList.get(i).getUrl());
                         jsonObject.put("isSent", messageArrayList.get(i).isReply());
                         messageAdapter.addItem(jsonObject);
 
